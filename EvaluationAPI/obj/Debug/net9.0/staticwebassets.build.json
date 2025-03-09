@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "hIKU6SCxFIxKPReWqB22K5GqITl3rey8aYDnl+afkrg=",
+  "Source": "EvaluationAPI",
+  "BasePath": "_content/EvaluationAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
