@@ -1,0 +1,5 @@
+To create migrations
+dotnet ef migrations add "name"
+
+To migrate to database 
+dotnet ef database update
