@@ -1,4 +1,4 @@
-namespace EvaluationAPI.models;
+namespace EvaluationAPI.Models;
 public class Criteria
 {
     public Guid Id;

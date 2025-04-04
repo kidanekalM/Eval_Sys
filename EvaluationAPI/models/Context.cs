@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace EvaluationAPI.models;
+namespace EvaluationAPI.Models;
 public class EvalContext(DbContextOptions options) : DbContext(options)
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)

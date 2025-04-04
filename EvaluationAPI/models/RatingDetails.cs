@@ -1,4 +1,4 @@
-namespace EvaluationAPI.models;
+namespace EvaluationAPI.Models;
 public class RatingDetails{
  public Guid Id;
  public required string Term;

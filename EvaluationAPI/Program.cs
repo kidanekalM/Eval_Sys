@@ -1,4 +1,4 @@
-using EvaluationAPI.models;
+using EvaluationAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
