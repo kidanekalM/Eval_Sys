@@ -2,7 +2,7 @@ using EvaluationAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EvaluationAPI.Repositories;
-public class RatingRepo  
+public class RatingRepo
 {
     private readonly EvalContext _context;
 
@@ -14,15 +14,16 @@ public class RatingRepo
     {
         try
         {
-            Rating rating = new(){
-                Id= Guid.NewGuid(),
-          Email=ratingDto.Email,
-          Value=ratingDto.Value,
-    Instructor=await _context.Instructors.FindAsync(ratingDto.InstructorId)
+            Rating rating = new()
+            {
+                Id = Guid.NewGuid(),
+                Email = ratingDto.Email,
+                Value = ratingDto.Value,
+                Instructor = await _context.Instructors.FindAsync(ratingDto.InstructorId)
                 ?? throw new ArgumentException("Instructor not found"),
-        RatingDetails= await _context.RatingDetails.FindAsync(ratingDto.RatingDetailsId)
+                RatingDetails = await _context.RatingDetails.FindAsync(ratingDto.RatingDetailsId)
                 ?? throw new ArgumentException("RatingDetails not found"),
-           Criteria= await _context.Criterias.FindAsync(ratingDto.CriteriaId)
+                Criteria = await _context.Criterias.FindAsync(ratingDto.CriteriaId)
                 ?? throw new ArgumentException("Criteria not found")
 
             };
@@ -34,10 +35,10 @@ public class RatingRepo
         catch (Exception e)
         {
             Console.WriteLine("Exception Occured! " + e.Message);
-            return null; 
+            return null;
         }
     }
-public async Task<Rating?> DeleteRatingAsync(Guid id)
+    public async Task<Rating?> DeleteRatingAsync(Guid id)
     {
         var rating = await _context.Ratings.FindAsync(id);
         if (rating == null)
@@ -50,13 +51,13 @@ public async Task<Rating?> DeleteRatingAsync(Guid id)
         return rating; // Rating deleted successfully
     }
 
-    public async Task<Rating?> GetRatingByIdAsync(Guid id)
+    public async Task<double> GetRatingByInstructorIdAsync(Guid id)
     {
-        return await _context.Ratings
-            .Include(r => r.Instructor)
-            .Include(r => r.RatingDetails)
-            .Include(r => r.Criteria)
-            .FirstOrDefaultAsync(r => r.Id == id);
+        List<Rating> ratings = await _context.Ratings
+            .Where(r => r.Instructor.Id == id).ToListAsync();
+        int numOfRatings = ratings.Count;
+        int sumOfRatings = ratings.Sum(r => r.Value);
+        return numOfRatings > 0 ? (double)sumOfRatings / numOfRatings : 0.0;
     }
 
     public async Task<List<Rating>> GetAllRatingsAsync()
